@@ -1,0 +1,25 @@
+//Requires:
+//<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+//<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<div class="ui-widget">
+  <label for="tags">Search: </label>
+  <input id="tags">
+</div>
+
+<script>
+  $(function() {
+    var availableTags = [
+      "MSFT",
+	  "FB",
+	  "AAPL",
+	  "GOOG",
+	  "BRK.A",
+	  "AMZN",
+	  "TSLA"
+    ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+  });
+</script>
