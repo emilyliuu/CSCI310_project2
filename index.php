@@ -8,7 +8,7 @@
     <meta http-equiv='X-UA-Compatible” content=”IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-    <title>Nancin</title>
+    <title>Financing</title>
     
     <!-- CSS -->
     <link rel='stylesheet' href='/modules/bootstrap/css/bootstrap.css'> <!--removed bootstrap.min.css and put bootstrap.css 04/01.16 -->
@@ -36,7 +36,7 @@
     
         <div class='row header'>
             <div class='col col-xs-3 col-side name flex-ver'>
-                <h1 id='appname' class=''>Nancin</h1>
+                <h1 id='appname' class=''>Financing</h1>
             </div>
             <div class='col col-xs-6 banner flex-ver'>
                 <p id='clock' class='time'>16:00</p>
