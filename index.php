@@ -8,23 +8,16 @@ session_start();
 ParseClient::initialize('6coM4vYK3mt4YD6fNC8hXm2WAAQZ7ZIaDIR4F04Z', 
                         'TIZe8qfP7L6F21SwKcqVZnvcvT2wDp5UO2tPGaDx', 
                         'QtaEvugC4anbeRe72EDsDCbOuYPCggGq22Ow01ot');
- 
+
 use Parse\ParseUser;
 use Parse\ParseException;
 use Parse\ParseObject;
 use Parse\ParseQuery;
 
-$username = "basic";
-$password = "tester";
+$username = "basicuserabcd@usc.edu";
+$password = "testerasdf";
 
 $user = ParseUser::logIn($username, $password);
-
-$user = new ParseUser();
-$user->set("email", $username);
-$user->set("username", $username);
-$user->set("password", $password);
-
-$user->signUp();
 ?>
 
 <!DOCTYPE html>
@@ -222,17 +215,17 @@ function toggleLine(t) {
             <div class='col col-xs-3 col-side'>
                 <!--<div id='transaction' class='module flex-ver'>-->
                 <iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"> <!--so hacky--></iframe>
-                <form id ='transaction' class = 'module flex-ver' action="/action/uploadCSV.php" method="post" target = "hiddenFrame" enctype="multipart/form-data">
+                <form id ='transaction' class = 'module flex-ver' action="/action/uploadCSV.php" target = "hiddenFrame" method="post" enctype="multipart/form-data">
                     <div id='' class='qty-row flex-hor'>
-                        <input id='account-name' class='account-name'
+                        <input name='account-name' id='account-name' class='account-name'
                             type='text' placeholder='Account Name'>
                     </div>
                     <div id='' class='msg-row'>
-                        <input id='file-csv' type='file' placeholder='csv file'></input>
+                        <input id='file-csv' name='file-csv' type='file' placeholder='csv file'></input>
                     </div>
                     <div id='' class='confirm-row flex-hor'>
-                        <button id='add' class='transaction-button'>Add</button>
-                        <button id='delete' class='transaction-button'>Delete</button>
+                        <input type = 'submit' name='add' id='add' class='transaction-button' value = 'Add'/>
+                        <input type = 'submit' name='delete' id='delete' class='transaction-button' value = 'Delete'/>
                     </div>
                 </form>
             </div>

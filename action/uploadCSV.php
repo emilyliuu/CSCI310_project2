@@ -3,7 +3,20 @@ ini_set('display_errors', 'On');
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/modules/parse-php/autoload.php';
 
+use Parse\ParseClient;
+
+session_start();
+ParseClient::initialize('6coM4vYK3mt4YD6fNC8hXm2WAAQZ7ZIaDIR4F04Z', 
+                        'TIZe8qfP7L6F21SwKcqVZnvcvT2wDp5UO2tPGaDx', 
+                        'QtaEvugC4anbeRe72EDsDCbOuYPCggGq22Ow01ot');
+
+use Parse\ParseUser;
+use Parse\ParseException;
+use Parse\ParseObject;
+use Parse\ParseQuery;
+
 $user = ParseUser::getCurrentUser();
+$contain = $user->get("acc_container");
 
 //$balance = $user->get("balance");
 //$portfolio = $user->get("portfolio");
@@ -48,10 +61,17 @@ function isValidTicker($_ticker) {
     }
 }
 
-echo('hey!');
+if (isset($_POST['delete'])) {
+    echo('deleting');
+    $name = $_POST['account-name'];
+    $contain->delete($name);
+    $user->set("acc_container",$contain);
+    $user->save();
+}
+
 // CSV Functionality
-if (isset($_POST['submit'])) {
-    echo('hey');
+if (isset($_POST['add'])) {
+    echo('adding');
     $filename = $_FILES['file-csv']['name'];
     echo $filename;
     if(!isValidFile($filename)) {
@@ -61,28 +81,22 @@ if (isset($_POST['submit'])) {
     $csv_file = file($_FILES['file-csv']['tmp_name']);
     $csv_array = array_map('str_getcsv', $csv_file);
     $name = $_POST['account-name'];
-    //$name = $csv_array[0][0];
     echo $name;
-    // Parse 2D array for stock data
+    // Parse 2D array for transaction data
     $dates = array(date_create_from_format("n/j/Y", $csv_array[0][0]));
     $values = array($csv_array[0][1]);
     $categories = array($csv_array[0][2]);
     $participants = array($csv_array[0][3]);
     for ($row = 1; $row < count($csv_array); $row++) {
-        // Parse row for transaction data
-        array_push($date,date_create_from_format("n/j/Y", $csv_array[$row][0]));
-        array_push($value,$csv_array[$row][1]);
-        array_push($category,$csv_array[$row][2]);
-        array_push($participant,$csv_array[$row][3]);
-
-        
-        //if(empty($portfolio[$ticker])) $portfolio[$ticker] = $qty;
-        //else $portfolio[$ticker] += $qty;
-        //$user->setAssociativeArray("portfolio", $portfolio);
-        //$user->save();
+        // Parse rows for transaction data
+        array_push($dates,date_create_from_format("n/j/Y", $csv_array[$row][0]));
+        array_push($values,$csv_array[$row][1]);
+        array_push($categories,$csv_array[$row][2]);
+        array_push($participants,$csv_array[$row][3]);
     }
-    $accountdata = ["name"=>$name,"dates"=>$dates,"values"=>$values,"categories"=>$categories,"participants"=>$participants];
-    
-    
+    $accountdata = ["dates"=>$dates,"values"=>$values,"categories"=>$categories,"participants"=>$participants];
+    $contain->setAssociativeArray($name,$accountdata);
+    $user->set("acc_container",$contain);
+    $user->save();
 }
 ?>

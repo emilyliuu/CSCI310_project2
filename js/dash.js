@@ -375,9 +375,11 @@ $('.transaction-button').click(function(e)
         
     }
     else if (button == 'add') {
-        $('#form-csv').submit();
+        //$('#form-csv').submit();
     }
-
+    
+    accountName.value='';
+    
     //message.innerHTML = 'processing...';
     //transaction(buy, ticker.toUpperCase(), company.toUpperCase(), qty);
 });
