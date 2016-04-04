@@ -1,5 +1,12 @@
-Scenario: CSV submit form exists
+Scenario: check that the account list exists
 Given I am on the main page
-Given at least one company is visible
-Given I press on the 1 month tab
-Then the x axis will be numbered 0 to 22
+Then there is an account list
+
+Scenario: check that the CSV submit form exists
+Given I am on the main page
+Then there is a CSV upload form
+
+Scenario: check that the graph exists
+Given I am on the main page
+Then there is a graph
+

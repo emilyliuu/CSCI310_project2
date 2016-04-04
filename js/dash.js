@@ -94,7 +94,7 @@ function updateGraph(m, d, name)
                url: "https://www.quandl.com/api/v3/datasets/WIKI/"+name+".json?api_key=yqPp2XtrdD682uj_LGxg"+startDate+now,
               success: updateCanvas});
 };
-
+/* 
 function updateCanvas(data){
     console.log(data);
     oldestDate = data.dataset.oldest_available_date;
@@ -115,7 +115,7 @@ function updateCanvas(data){
       }
     drawGraph(price, date);
 }
-
+*/
 
 /**
  * Update every minute
@@ -135,7 +135,7 @@ function update()
  */
 $('#csv').click(function(e)
 {
-    $('#csv-input').click();
+//    $('#csv-input').click();
 });
 
 /**
@@ -143,7 +143,7 @@ $('#csv').click(function(e)
  */
 $('#csv-input').change(function(e)
 {
-//    $('#csv-form').sumbit();
+    //$('#csv-form').submit();
 });
 
 /** 
@@ -334,8 +334,6 @@ function drawGraph(priceArray, daysArray)
 
          var ctx = canvas.getContext("2d");
         var myLineChart = new Chart(ctx).Line(lineChartData, {responsive: true, maintainAspectRatio: true});
-
-
 }
 
 function updateCanvas(data){
@@ -361,40 +359,29 @@ function updateCanvas(data){
 
 
 /* --- TRANSACTION --- */
-var message = document.getElementById('transaction-message');
-var companyInput = document.getElementById('company-input');
-var tickerInput = document.getElementById('ticker-input');
-var qtyInput = document.getElementById('qty-input');
+
+var myfile = document.getElementById('file-csv');
+var accountName = document.getElementById('account-name');
 
 /**
- * Called when user clicks buy or sell button for transaction
+ * Called when user clicks add or remove button for account
  */
 $('.transaction-button').click(function(e)
 {
-    var company = companyInput.value;
-    var ticker = tickerInput.value;
-    var qty = qtyInput.value;
-    var buy = e.target.id;
-    
-    if (ticker === '')
-    {
-        message.innerHTML = 'missing ticker';
-        return;
+    var button = e.target.id;
+    var account = accountName.value;
+    var file = myfile.value;
+    if (button == 'delete') {
+        
     }
-    if (company === '')
-    {
-        message.innerHTML = 'missing company';
-        return;
+    else if (button == 'add') {
+        $('#form-csv').submit();
     }
-    if ( !isInt(qty) || qty < 0 )
-    {
-        message.innerHTML = 'invalid quantity';
-        return;
-    }
-    
-    message.innerHTML = 'processing...';
-    transaction(buy, ticker.toUpperCase(), company.toUpperCase(), qty);
+
+    //message.innerHTML = 'processing...';
+    //transaction(buy, ticker.toUpperCase(), company.toUpperCase(), qty);
 });
+
 
 
 /**

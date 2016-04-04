@@ -1,4 +1,31 @@
+<?php
+ini_set('display_errors', 'On');
 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/modules/parse-php/autoload.php';
+use Parse\ParseClient;
+
+session_start();
+ParseClient::initialize('6coM4vYK3mt4YD6fNC8hXm2WAAQZ7ZIaDIR4F04Z', 
+                        'TIZe8qfP7L6F21SwKcqVZnvcvT2wDp5UO2tPGaDx', 
+                        'QtaEvugC4anbeRe72EDsDCbOuYPCggGq22Ow01ot');
+ 
+use Parse\ParseUser;
+use Parse\ParseException;
+use Parse\ParseObject;
+use Parse\ParseQuery;
+
+$username = "basic";
+$password = "tester";
+
+$user = ParseUser::logIn($username, $password);
+
+$user = new ParseUser();
+$user->set("email", $username);
+$user->set("username", $username);
+$user->set("password", $password);
+
+$user->signUp();
+?>
 
 <!DOCTYPE html>
 <html lang='en'>
@@ -14,10 +41,7 @@
     <link rel='stylesheet' href='/modules/bootstrap/css/bootstrap.css'> <!--removed bootstrap.min.css and put bootstrap.css 04/01.16 -->
     <link rel='stylesheet' href='/css/dash.css'>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-
     
-    
-
     <!-- JS -->
     <script src='/modules/jquery.min.js'></script>
     <script src='/modules/jquery.bpopup.min.js'></script>
@@ -28,7 +52,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js" type="text/javascript"></script>
     
     <script src='/js/dash.js'></script>
-
 </head>
 <body>
 
@@ -47,11 +70,7 @@
         <div class='row toolbar'>
             <div class='col col-xs-3 col-side toolbar-left flex-hor'>
                 
-                <form id="csv-form" action="/action/uploadCSV.php" method="post" enctype="multipart/form-data">
-                    <input id='csv-file' type='file' name='csv-file'>
-                    <input type='submit' value='upload' name='submit'>
-                </form>
-                
+             
             </div>
             <div class='col col-xs-6'>
                 
@@ -201,24 +220,21 @@ function toggleLine(t) {
         
         <div class='row footer'>
             <div class='col col-xs-3 col-side'>
-                <div id='transaction' class='module flex-ver'>
-                    <div id='' class='target-row flex-hor'>
-                        
-                    </div>
-
+                <!--<div id='transaction' class='module flex-ver'>-->
+                <iframe name="hiddenFrame" width="0" height="0" border="0" style="display: none;"> <!--so hacky--></iframe>
+                <form id ='transaction' class = 'module flex-ver' action="/action/uploadCSV.php" method="post" target = "hiddenFrame" enctype="multipart/form-data">
                     <div id='' class='qty-row flex-hor'>
-                        <input id='qty-input' class='transaction-qty'
-                               type='text' placeholder='Account Name'>
+                        <input id='account-name' class='account-name'
+                            type='text' placeholder='Account Name'>
                     </div>
                     <div id='' class='msg-row'>
-                        <input type='file' placeholder='csv file'></input>
+                        <input id='file-csv' type='file' placeholder='csv file'></input>
                     </div>
                     <div id='' class='confirm-row flex-hor'>
-                        <button id='buy' class='transaction-button'>Add</button>
-                        <button id='sell' class='transaction-button'>Delete</button>
+                        <button id='add' class='transaction-button'>Add</button>
+                        <button id='delete' class='transaction-button'>Delete</button>
                     </div>
-
-                </div>
+                </form>
             </div>
             <div class='col col-xs-6'>
                 <div id='details' class='module'></div>

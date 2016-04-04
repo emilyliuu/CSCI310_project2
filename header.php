@@ -1,14 +1,5 @@
 <?php
 
-/**
- * header.php
- *
- * Defines things that most files will need.
- * host & uri point to current domain for redirectnig.
- * Parse initialization with appropriate keys
- *
- * @author: Bohui Moon [bohuim]
- */
 
 
 /* parse */

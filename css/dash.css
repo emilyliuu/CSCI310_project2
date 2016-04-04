@@ -57,9 +57,7 @@ body {
 .toolbar { height: 35px; }
 .tool { height: 100%; }
 .tool.button { width: 20%; }
-#csv-form {
-    display: none;
-}
+
 #search {
     width: 100%;
     padding: 0px 10px;
@@ -259,6 +257,27 @@ li.graph-tab > a { color: black; };
 .confirm-row { height: 25%; }
 #buy { border-right: 1px solid white; }
 .transaction-button {
+    width: 50%;
+    height: 100%;
+    
+    font-size: 18px;
+    
+    color: black;
+    border: none;
+    background-color: #d3d3d3;
+}
+
+.add-button {
+    width: 50%;
+    height: 100%;
+    
+    font-size: 18px;
+    
+    color: black;
+    border: none;
+    background-color: #d3d3d3;
+}
+.delete-button {
     width: 50%;
     height: 100%;
     

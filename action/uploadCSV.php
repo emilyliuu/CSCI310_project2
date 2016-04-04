@@ -1,16 +1,15 @@
 <?php
+ini_set('display_errors', 'On');
 
-require_once 'header.php';
-use Parse\ParseUser;
-use Parse\ParseException;
-use Parse\ParseObject;
-use Parse\ParseQuery;
+require_once $_SERVER['DOCUMENT_ROOT'] . '/modules/parse-php/autoload.php';
 
 $user = ParseUser::getCurrentUser();
-$balance = $user->get("balance");
-$portfolio = $user->get("portfolio");
+
+//$balance = $user->get("balance");
+//$portfolio = $user->get("portfolio");
 
 function isValidFile($_filename) {
+    return true;
     $ext = strtolower(end(explode('.', $_filename)));
     if($ext != "csv") {
         return false;
@@ -49,47 +48,41 @@ function isValidTicker($_ticker) {
     }
 }
 
-
+echo('hey!');
 // CSV Functionality
 if (isset($_POST['submit'])) {
-    
-    $filename = $_FILES['csv-file']['name'];
+    echo('hey');
+    $filename = $_FILES['file-csv']['name'];
     echo $filename;
     if(!isValidFile($filename)) {
         echo "Uploaded file type invalid";
         exit();
     }
-    
-    $csv_file = file($_FILES['csv-file']['tmp_name']);
+    $csv_file = file($_FILES['file-csv']['tmp_name']);
     $csv_array = array_map('str_getcsv', $csv_file);
-    
-    
+    $name = $_POST['account-name'];
+    //$name = $csv_array[0][0];
+    echo $name;
     // Parse 2D array for stock data
+    $dates = array(date_create_from_format("n/j/Y", $csv_array[0][0]));
+    $values = array($csv_array[0][1]);
+    $categories = array($csv_array[0][2]);
+    $participants = array($csv_array[0][3]);
     for ($row = 1; $row < count($csv_array); $row++) {
         // Parse row for transaction data
+        array_push($date,date_create_from_format("n/j/Y", $csv_array[$row][0]));
+        array_push($value,$csv_array[$row][1]);
+        array_push($category,$csv_array[$row][2]);
+        array_push($participant,$csv_array[$row][3]);
+
         
-        $ticker = $csv_array[$row][0];
-        $date = $csv_array[$row][1];
-        $price = $csv_array[$row][2];
-        $qty = $csv_array[$row][3];
-
-        if(!isValidTransaction($ticker, $date, $price, $qty)) {
-            echo $ticker;
-            echo "Uploaded transaction is invalid.";
-            continue;
-        } if(!isValidTicker($ticker)) { //invalid ticker symbol
-            echo $ticker;
-            echo "Sorry, that ticker company is not available through Stockr.";
-            exit();
-        }
-        $ticker = strtoupper($ticker);
-        $date = date_create_from_format("n/j/Y", $date);
-
-        if(empty($portfolio[$ticker])) $portfolio[$ticker] = $qty;
-        else $portfolio[$ticker] += $qty;
-        $user->setAssociativeArray("portfolio", $portfolio);
-        $user->save();
+        //if(empty($portfolio[$ticker])) $portfolio[$ticker] = $qty;
+        //else $portfolio[$ticker] += $qty;
+        //$user->setAssociativeArray("portfolio", $portfolio);
+        //$user->save();
     }
+    $accountdata = ["name"=>$name,"dates"=>$dates,"values"=>$values,"categories"=>$categories,"participants"=>$participants];
+    
     
 }
 ?>
