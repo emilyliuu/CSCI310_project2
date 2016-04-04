@@ -11,22 +11,22 @@
     <title>Nancin</title>
     
     <!-- CSS -->
-    <link rel='stylesheet' href='/Stockr/www/modules/bootstrap/css/bootstrap.css'> <!--removed bootstrap.min.css and put bootstrap.css 04/01.16 -->
-    <link rel='stylesheet' href='/Stockr/www/css/dash.css'>
+    <link rel='stylesheet' href='/modules/bootstrap/css/bootstrap.css'> <!--removed bootstrap.min.css and put bootstrap.css 04/01.16 -->
+    <link rel='stylesheet' href='/css/dash.css'>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
     
     
 
     <!-- JS -->
-    <script src='/Stockr/www/modules/jquery.min.js'></script>
-    <script src='/Stockr/www/modules/jquery.bpopup.min.js'></script>
-    <script src='/Stockr/www/modules/jquery-ui.min.js'></script>
-    <script src='/Stockr/www/modules/bootstrap/js/bootstrap.min.js'></script>
-    <script src='/Stockr/www/modules/chart.min.js'></script>
-    <script src='/Stockr/www/modules/moment.min.js'></script>
+    <script src='/modules/jquery.min.js'></script>
+    <script src='/modules/jquery.bpopup.min.js'></script>
+    <script src='/modules/jquery-ui.min.js'></script>
+    <script src='/modules/bootstrap/js/bootstrap.min.js'></script>
+    <script src='/modules/chart.min.js'></script>
+    <script src='/modules/moment.min.js'></script>
     
-    <script src='/Stockr/www/js/dash.js'></script>
+    <script src='/js/dash.js'></script>
 
 </head>
 <body>
