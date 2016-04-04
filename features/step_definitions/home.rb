@@ -1,3 +1,6 @@
+require 'selenium-webdriver'
+browser = Selenium::WebDriver.for(:firefox)
+
 Given(/^I am on the main page$/) do
    browser.get('http://localhost')
 end

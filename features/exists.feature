@@ -1,3 +1,5 @@
+Feature: Exists
+
 Scenario: check that the account list exists
 Given I am on the main page
 Then there is an account list
