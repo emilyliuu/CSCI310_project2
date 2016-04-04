@@ -75,13 +75,13 @@
             <div class='col col-xs-6'>
                 <div id='graph-view' class='module graph-module flex-ver'>
                     
- <canvas id="LineChart" width="600" height="400px"></canvas>
+ <canvas id="LineChart" width="600px" height="400px"></canvas>
 
 <div class="chart-toggles">
-    <a class="sp enabled" onclick="toggleLine(this)">Toggle SP</a>
-    <a class="nc enabled" onclick="toggleLine(this)">Toggle NC</a>
-    <a class="nc-avg enabled" onclick="toggleLine(this)">Toggle NC Avg</a>
-    <a class="sp-avg enabled" onclick="toggleLine(this)">Toggle SP Avg</a>
+    <a class="sp enabled" onclick="toggleLine(this)"></a>
+    <a class="nc enabled" onclick="toggleLine(this)"></a>
+    <a class="nc-avg enabled" onclick="toggleLine(this)"></a>
+    <a class="sp-avg enabled" onclick="toggleLine(this)"></a>
 </div>
 
 <script>
