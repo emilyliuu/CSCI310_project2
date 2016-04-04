@@ -25,6 +25,7 @@
     <script src='/modules/bootstrap/js/bootstrap.min.js'></script>
     <script src='/modules/chart.min.js'></script>
     <script src='/modules/moment.min.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js" type="text/javascript"></script>
     
     <script src='/js/dash.js'></script>
 
@@ -92,21 +93,117 @@
             </div>
             <div class='col col-xs-6'>
                 <div id='graph-view' class='module graph-module flex-ver'>
-                    <ul class="nav nav-tabs graph-tabs">
-                        <li class='graph-tab' active><a href=''>Portfolio</a></li>
-                        <li class='graph-tab'><a href=''>Watchlist</a></li>
-                    </ul>
-                    <div id="gContainer">
-                    <canvas id='graph' width = 570 height = 300></canvas>
-                    </div>
-                    <ul id='interval-list' class='flex-hor'>
-                        <li id='1d' class='interval'><a>1d</a></li>
-                        <li id='5d' class='interval'><a>5d</a></li>
-                        <li id='1m' class='interval'><a>1m</a></li>
-                        <li id='3m' class='interval'><a>3m</a></li>
-                        <li id='6m' class='interval'><a>6m</a></li>
-                        <li id='all' class='interval'><a>All</a></li>
-                    </ul>
+                    
+ <canvas id="LineChart" width="600" height="400px"></canvas>
+
+<div class="chart-toggles">
+    <a class="sp enabled" onclick="toggleLine(this)">Toggle SP</a>
+    <a class="nc enabled" onclick="toggleLine(this)">Toggle NC</a>
+    <a class="nc-avg enabled" onclick="toggleLine(this)">Toggle NC Avg</a>
+    <a class="sp-avg enabled" onclick="toggleLine(this)">Toggle SP Avg</a>
+</div>
+
+<script>
+
+var ctx = document.getElementById("LineChart").getContext("2d");
+
+var options = {
+    animation: false,
+    bezierCurve: false,
+    pointDot: false,
+    datasetFill: false,
+    responsive: true,
+    scaleGridLineColor: "rgba(0,0,0,0.03)",
+    scaleLabel: "<%=value + '.00%' %>",
+    scaleFontFamily: "'Open Sans', sans-serif",
+    scaleFontColor: "#929292",
+    scaleOverride: true,
+    scaleSteps: 8,
+    scaleStepWidth: 10,
+    scaleStartValue: -40,
+    tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%=value + '%' %>",
+    tooltipCornerRadius: 3,
+    multiTooltipTemplate: "<%=value + '%' %>",
+    tooltipTitleFontFamily: "'Open Sans', sans-serif"
+};
+
+var chartlabel = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014];
+
+var enableCheck = function() {
+    SPOn = document.getElementsByClassName('sp')[0].className.indexOf('enabled') != -1;
+    NCOn = document.getElementsByClassName('nc')[0].className.indexOf('enabled') != -1;
+    SPAOn = document.getElementsByClassName('sp-avg')[0].className.indexOf('enabled') != -1;
+    NCAOn = document.getElementsByClassName('nc-avg')[0].className.indexOf('enabled') != -1;
+    if (!(SPOn)) {
+        SP = {};
+    } else {
+        SP = {
+            label: "S&P 500 Annual % Change in Value",
+            strokeColor: "#db870f",
+            pointColor: "#db870f",
+            data: [-10.14, -13.04, -23.37, 26.38, 8.99, 3.00, 13.62, 3.53, -38.49, 23.45, 12.78, 0.00, 13.41, 29.60, 11.39]
+        };
+    };
+    if (!(NCOn)) {
+        NC = {};
+    } else {
+        NC = {
+            label: "NCREIF Property Index Annual Returns",
+            strokeColor: "#449bf7",
+            pointColor: "#449bf7",
+            data: [11.72, 7.10, 6.58, 8.70, 13.77, 18.72, 15.65, 14.98, -6.30, -17.96, 12.55, 13.56, 10.15, 10.56, 11.00]
+        };
+    };
+    if (!(SPAOn)) {
+        SPA = {};
+    } else {
+        SPA = {
+            label: "S&P 500 Avg. Annual % Change in Value",
+            strokeColor: "#efb96c",
+            pointColor: "#efb96c",
+            data: [4.07, 4.07, 4.07, 4.07, 4.07, 4.07, 4.07, 4.07, 4.07, 4.07, 4.07, 4.07, 4.07, 4.07, 4.07]
+        };
+    };
+    if (!(NCAOn)) {
+        NCA = {};
+    } else {
+        NCA = {
+            label: "NCREIF Average Return",
+            strokeColor: "#aacdf2",
+            pointColor: "#aacdf2",
+            data: [8.72, 8.72, 8.72, 8.72, 8.72, 8.72, 8.72, 8.72, 8.72, 8.72, 8.72, 8.72, 8.72, 8.72, 8.72]
+        };
+    };
+};
+
+    
+enableCheck();
+data = {
+   labels: chartlabel,
+   datasets: [ SPA, NCA, SP, NC ]
+};
+baseChart = new Chart(ctx).Line(data, options);
+currentChart = baseChart;
+
+function toggleLine(t) {
+    //currentChart.destroy();
+    if (t.className.indexOf('enabled') == -1)
+         t.className += ' enabled'
+    else
+         t.className = t.className.replace('enabled', '');
+    enableCheck();
+    data = {
+        labels: chartlabel,
+        datasets: [ SPA, NCA, SP, NC ]
+    };     
+    newChart = new Chart(ctx).Line(data, options);
+    currentChart = newChart;
+};
+</script>
+
+
+
+
                 </div>
             </div>
             <div class='col col-xs-3 col-side'>

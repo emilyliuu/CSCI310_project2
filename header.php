@@ -12,7 +12,7 @@
 
 
 /* parse */
-require_once $_SERVER['DOCUMENT_ROOT'] . '/Stockr/www/modules/parse-php/autoload.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/html/modules/parse-php/autoload.php';
 use Parse\ParseClient;
 
 session_start();
