@@ -5,6 +5,10 @@ Given(/^I am on the main page$/) do
    browser.get('http://localhost')
 end
 
+Then (/^there is a ([^"]*)$/) do |element|
+   browser.find_element(:id, element).displayed?
+end
+
 Then(/^there is a graph$/) do
    browser.find_element(:id, 'LineChart').displayed?   
 end
